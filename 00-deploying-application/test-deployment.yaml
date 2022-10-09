@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bgd
+  name: bgd
+  namespace: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bgd
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: bgd
+    spec:
+      containers:
+      - image: quay.io/redhatworkshops/bgd
+        name: bgd
+        resources: {}
