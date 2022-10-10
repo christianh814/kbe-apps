@@ -3,3 +3,13 @@ kind: Kustomization
 
 bases:
 - ../../base
+
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Deployment
+      name: welcome-php
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 3
