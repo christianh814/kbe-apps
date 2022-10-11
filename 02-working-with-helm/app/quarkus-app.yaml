@@ -17,7 +17,7 @@ spec:
         - name: deploy.route.enabled
           value: "false"
         - name: image.name
-          value: quay.io/redhatworkshops/gitops-helm-quarkus:latest
+          value: quay.io/redhatworkshops/gitops-helm-quarkus
     chart: quarkus
     repoURL: https://redhat-developer.github.io/redhat-helm-charts
     targetRevision: 0.0.3
