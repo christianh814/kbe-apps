@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  labels:
+    app: bgd
+  name: bgd
+  namespace: synctest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bgd
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: bgd
+    spec:
+      initContainers:
+      - name: init-bgd
+        image: quay.io/redhatworkshops/bgd
+        command: ['bash', '-c', "sleep 5"]
+      containers:
+      - image: quay.io/redhatworkshops/bgd
+        name: bgd
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 2
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 3
+        resources: {}
