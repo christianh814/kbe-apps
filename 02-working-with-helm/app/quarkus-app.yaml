@@ -1,0 +1,35 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: quarkus-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: demo
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      parameters:
+        - name: build.enabled
+          value: "false"
+        - name: deploy.route.tls.enabled
+          value: "true"
+        - name: image.name
+          value: quay.io/redhatworkshops/gitops-helm-quarkus:latest
+    chart: quarkus
+    repoURL: https://redhat-developer.github.io/redhat-helm-charts
+    targetRevision: 0.0.3
+  syncPolicy:
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+      limit: 5
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
