@@ -22,9 +22,11 @@ spec:
       - name: init-bgd
         image: quay.io/redhatworkshops/bgd
         command: ['bash', '-c', "sleep 5"]
+        imagePullPolicy: Always
       containers:
       - image: quay.io/redhatworkshops/bgd
         name: bgd
+        imagePullPolicy: Always
         livenessProbe:
           httpGet:
             path: /

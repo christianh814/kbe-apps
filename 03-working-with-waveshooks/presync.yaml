@@ -13,4 +13,5 @@ spec:
   - name: myapp-container
     image: registry.access.redhat.com/ubi8/ubi
     command: ['bash', '-c', 'sleep 3 ; echo Presync']
+    imagePullPolicy: Always
   restartPolicy: "Never"
